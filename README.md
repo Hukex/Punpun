@@ -28,11 +28,11 @@ I use **2** API for this project.
 
 Dark Mode
 
-![GIF](https://github.com/Hukex/Punpun/blob/master/readmefiles/preview.gif)
+![GIF](https://github.com/Hukex/Punpun/blob/master/readmefiles/preview.gif?raw=true)
 
 Normal Mode
 
-![GIF](https://github.com/Hukex/Punpun/blob/master/readmefiles/preview2.gif)
+![GIF](https://github.com/Hukex/Punpun/blob/master/readmefiles/preview2.gif?raw=true)
 
 # Screenshots📷
 
