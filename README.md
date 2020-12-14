@@ -24,16 +24,15 @@ I use **2** API for this project.
 
 # Preview🔍
 
-[💠You can try it!💠](https://github.com/Hukex/Punpun/blob/master/app/release/punpun.apk?raw=true)
+[💠You can try it!💠](https://github.com/Hukex/Punpun/blob/main/app/release/punpun.apk?raw=true)
 
 Dark Mode
 
-![GIF](https://github.com/Hukex/Punpun/blob/master/readmefiles/preview.gif?raw=true)
- <img src="https://github.com/Hukex/Punpun/blob/master/readmefiles/preview.gif" alt="GIF" title="Dark mode"/>
+![GIF](https://github.com/Hukex/Punpun/blob/main/readmefiles/preview.gif?raw=true)
  
 Normal Mode
 
-![GIF](https://github.com/Hukex/Punpun/blob/master/readmefiles/preview2.gif?raw=true)
+![GIF](https://github.com/Hukex/Punpun/blob/main/readmefiles/preview2.gif?raw=true)
 
 # Screenshots📷
 
