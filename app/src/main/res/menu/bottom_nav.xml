@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bar_share"
+        android:icon="@drawable/ic_share"
+        android:title="@string/share" />
+    <item
+        android:id="@+id/bar_download"
+        android:icon="@drawable/ic_download"
+        android:title="@string/download" />
+
+    <item
+        android:id="@+id/bar_more"
+        android:icon="@drawable/ic_more"
+        android:title="@string/more" />
+    <item
+        android:id="@+id/bar_left"
+        android:icon="@drawable/ic_left"
+        android:title="@string/back" />
+    <item
+        android:id="@+id/bar_right"
+        android:icon="@drawable/ic_right"
+        android:title="@string/next" />
+
+</menu>

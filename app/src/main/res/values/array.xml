@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="items_name">
+        <item>@string/english</item>
+        <item>@string/spanish</item>
+    </string-array>
+
+    <string-array name="items_value">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

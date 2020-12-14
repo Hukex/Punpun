@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ds">
+        <attr name="backgroundOwn" format="color" />
+        <attr name="textOwn" format="color" />
+        <attr name="textSubOwn" format="color" />
+        <attr name="iconOwn" format="color" />
+        <attr name="iconSelectedOwn" format="color" />
+        <attr name="imageViewOwn" format="color" />
+        <attr name="switchSelectedOwn" format="color" />
+    </declare-styleable>
+
+</resources>

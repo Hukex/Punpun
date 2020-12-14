@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share">Share</string>
+    <string name="download">Download</string>
+    <string name="next">Next</string>
+    <string name="back">Previous</string>
+    <string name="more">Details</string>
+    <string name="searchW">Search</string>
+    <string name="settingsW">Settings</string>
+    <string name="retry">Retry</string>
+    <string name="fail_connection">There is a problem with the connection</string>
+    <string name="updated">Updated</string>
+    <string name="not_found">Not found</string>
+    <string name="share_title">Share image</string>
+    <string name="wallpaper_title">Wallpapers</string>
+    <string name="photos">Wallpapers</string>
+    <string name="photo_min">wallpapers</string>
+    <string name="photo_min_individual">wallpaper</string>
+    <string name="dark_mode_on">Dark mode enabled</string>
+    <string name="dark_mode_off">Dark mode disabled</string>
+    <string name="dark_label">Dark mode</string>
+    <string name="visual_settings">Visual settings</string>
+    <string name="max_quality_images_on">Max image quality enabled</string>
+    <string name="max_quality_images_off">Optimized image quality enabled</string>
+    <string name="max_quality_images_label">Image quality</string>
+    <string name="language_settings">Language settings</string>
+    <string name="language_label">Languages</string>
+    <string name="spanish">Spanish</string>
+    <string name="english">English</string>
+    <string name="users">users</string>
+    <string name="episodes">episodes</string>
+    <string name="type">Type</string>
+    <string name="ranking">Ranking</string>
+    <string name="episodes_m">Episodes</string>
+    <string name="score">Score</string>
+    <string name="status">Status</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="duration">Duration</string>
+    <string name="date_aired">Aired date</string>
+    <string name="trailer_btn">Watch trailer</string>
+    <string name="source">Source</string>
+    <string name="genre">Genre</string>
+    <string name="studies">Studies</string>
+    <string name="producers">Producers</string>
+    <string name="volums">Volumns</string>
+    <string name="authors">Authors</string>
+
+
+</resources>

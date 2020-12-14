@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/backgroundOwn"
+    android:padding="2dp">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/photoAnimeParent"
+        android:layout_width="wrap_content"
+        android:layout_height="280dp"
+        android:layout_margin="2dp"
+        android:background="?attr/backgroundOwn"
+        app:cardCornerRadius="8dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:src="@drawable/ic_favorite"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/photoAnime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/imageViewOwn"
+            tools:ignore="ContentDescription"
+            tools:src="@mipmap/ic_launcher" />
+
+        <View
+            android:id="@+id/gradient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/gradient_shape" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:backgroundTint="@color/cardview_dark_background"
+
+            app:cardCornerRadius="4dp">
+
+
+            <TextView
+                android:id="@+id/rank_anime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/teal_200"
+                android:gravity="center"
+                android:padding="8dp"
+                android:textColor="@color/white99"
+                tools:text="9999" />
+
+            <TextView
+                android:id="@+id/type_anime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/cardview_dark_background"
+                android:padding="8dp"
+                android:textColor="@color/white99"
+                tools:text="TV(20)" />
+
+            <ImageView
+                android:id="@+id/anime_score_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="36dp"
+                android:background="@drawable/ic_start_full"
+                android:elevation="2dp" />
+
+            <TextView
+                android:id="@+id/anime_score"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="@color/cardview_dark_background"
+                android:padding="8dp"
+                android:textColor="@color/white99"
+                tools:text="9.99" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/anime_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:ellipsize="end"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="2"
+            android:padding="8dp"
+            android:shadowColor="@color/black"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:textColor="@color/white"
+            tools:text="Dragon DragonDragonDragonDragonDragon ball z" />
+    </androidx.cardview.widget.CardView>
+
+
+</FrameLayout>

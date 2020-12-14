@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/visual_settings">
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="DARKMODE"
+            app:summaryOff="@string/dark_mode_off"
+            app:summaryOn="@string/dark_mode_on"
+            app:title="@string/dark_label" />
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="QUALITYIMAGE"
+            app:summaryOff="@string/max_quality_images_off"
+            app:summaryOn="@string/max_quality_images_on"
+            app:title="@string/max_quality_images_label" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/language_settings">
+        <ListPreference
+            app:entries="@array/items_name"
+            app:entryValues="@array/items_value"
+            app:key="LANGUAGES"
+            app:summary="%s"
+            app:title="@string/language_label" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

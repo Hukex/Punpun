@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bar_anime"
+        android:icon="@drawable/ic_anime"
+        android:title="@string/animes" />
+    <item
+        android:id="@+id/bar_manga"
+        android:icon="@drawable/ic_manga"
+        android:title="@string/mangas" />
+    <item
+        android:id="@+id/bar_wallpaper"
+        android:icon="@drawable/ic_wallpapers"
+        android:title="@string/photos" />
+
+</menu>

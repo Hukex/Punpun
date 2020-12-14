@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AnimeActivity">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topWallpaperBarParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topWallpaperBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/backgroundOwn"
+            android:theme="@style/MyThemeOverlay_Toolbar"
+            app:contentInsetStartWithNavigation="0dp"
+            app:menu="@menu/top_menu_wallpaper"
+            app:navigationIcon="@drawable/ic_anime"
+            app:navigationIconTint="?attr/iconOwn"
+            app:title="@string/anime_title"
+            app:titleTextColor="?attr/textOwn" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <FrameLayout
+        android:id="@+id/blackBlur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="#CC000000"
+        android:clickable="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottomWallpaperBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/topWallpaperBarParent" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeResfreshWallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <com.hukex.punpun.widget.AutofitRecyclerViewAnimeManga
+            android:id="@+id/autofitRecyclerViewAnime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/backgroundOwn"
+            android:clipToPadding="false"
+            android:columnWidth="180dp"
+            android:padding="1dp"
+            app:layout_constraintBottom_toTopOf="@+id/progress_bar_circle"
+            app:layout_constraintTop_toBottomOf="@+id/topWallpaperBarParent"
+            tools:listitem="@layout/anime_and_manga_view" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomWallpaperBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?attr/backgroundOwn"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="?attr/textOwn"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_insetEdge="bottom"
+        app:menu="@menu/bottom_menu_wallpaper" />
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress_bar_center"
+        style="@style/SpinKitView.Large.Circle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/purple_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
