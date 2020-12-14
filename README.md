@@ -29,7 +29,8 @@ I use **2** API for this project.
 Dark Mode
 
 ![GIF](https://github.com/Hukex/Punpun/blob/master/readmefiles/preview.gif?raw=true)
-
+ <img src="https://github.com/Hukex/Punpun/blob/master/readmefiles/preview.gif" alt="GIF" title="Dark mode"/>
+ 
 Normal Mode
 
 ![GIF](https://github.com/Hukex/Punpun/blob/master/readmefiles/preview2.gif?raw=true)
