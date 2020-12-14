@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">PUNPUN</string>
     <string name="key" translatable="false">YOU NEED A KEY FROM https://wall.alphacoders.com/api.php</string>
+
     <string name="firstPart" translatable="false">get.php?auth=</string>
     <string name="subCategoryMethod" translatable="false">&amp;method=sub_category_list&amp;id=3</string>
     <string name="categoryMethod" translatable="false">&amp;method=category&amp;id=3&amp;info_level=2&amp;page=</string>
@@ -19,8 +20,11 @@
     <string name="next">Siguiente</string>
     <string name="back">Anterior</string>
     <string name="more">Detalles</string>
-
-
+    <string name="presentation">Presentación</string>
+    <string name="cancel_presentation">Detener</string>
+    <string name="download_message_11">Descarga no esta aun disponible en dispositivos con android 11</string>
+    <string name="downloading">Descargando imagen…</string>
+    <string name="downloaded">¡Imagen descargada!</string>
     // top bar wallpaper
     <string name="searchW">Buscar</string>
     <string name="settingsW">Ajustes</string>

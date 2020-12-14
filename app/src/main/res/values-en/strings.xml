@@ -44,6 +44,10 @@
     <string name="producers">Producers</string>
     <string name="volums">Volumns</string>
     <string name="authors">Authors</string>
-
+    <string name="presentation">Presentation</string>
+    <string name="cancel_presentation">Stop</string>
+    <string name="download_message_11">Download is not yet available for android 11 devices</string>
+    <string name="downloading">Downloading image…</string>
+    <string name="downloaded">¡Image downloaded!</string>
 
 </resources>

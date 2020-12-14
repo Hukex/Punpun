@@ -1,19 +1,25 @@
 package com.hukex.punpun.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -23,6 +29,7 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -40,11 +47,14 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.hukex.punpun.R;
 import com.hukex.punpun.WallpaperActivity;
 import com.hukex.punpun.model.wallpapers.Wallpaper;
 import com.hukex.punpun.utils.GlideApp;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,11 +73,12 @@ public class PhotoFragmentZoom extends Fragment {
     public boolean canEnter = true;
     private int currentPage = 0;
     private Timer timer;
-    final long DELAY_MS = 2000;//delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 500; // time in milliseconds between successive task executions.
+    final long DELAY_MS = 50;//delay in milliseconds before task is to be executed
+    final long PERIOD_MS = 1500; // time in milliseconds between successive task executions.
     private int realPosition;
     private PhotoWithZoomAdapter photoWithZoomAdapter;
     private SharedPreferences sharedPref;
+    private HashMap<Integer, PhotoView> photoViewContainerByPosition = new HashMap<>();
 
     //Important when rotate phone(create activity)
     public PhotoFragmentZoom() {
@@ -167,6 +178,62 @@ public class PhotoFragmentZoom extends Fragment {
                         startActivity(Intent.createChooser(intent, getResources().getString(R.string.share_title)));
                         return true;
                     case R.id.bar_download:
+                        Thread thread = new Thread(() -> {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                                int permissionCheck = ContextCompat.checkSelfPermission(
+                                        getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                                if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                                } else {
+                                    Snackbar snack = Snackbar.make(view, getString(R.string.downloading), Snackbar.LENGTH_INDEFINITE);
+                                    snack.show();
+                                    BitmapDrawable bitmapDrawable = (BitmapDrawable) photoViewContainerByPosition.get(viewPager.getCurrentItem()).getDrawable();
+                                    Bitmap bitmap = bitmapDrawable.getBitmap();
+                                    FileOutputStream outputStream = null;
+                                    File file = Environment.getExternalStorageDirectory();
+                                    File dir = new File(file.getAbsolutePath() + "/Punpun/Wallpapers");
+                                    dir.mkdirs();
+                                    String filename = String.format("%d.png", System.currentTimeMillis());         // TODO watch if image is not already downloaded ^_^
+                                    File outFile = new File(dir, filename);
+                                    try {
+                                        outputStream = new FileOutputStream(outFile);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                                    try {
+                                        outputStream.flush();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        outputStream.close();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    snack.dismiss();
+                                    Snackbar.make(view, getString(R.string.downloaded), Snackbar.LENGTH_SHORT).show();
+
+                                }
+                            } else
+                                Snackbar.make(view, getString(R.string.download_message_11), Snackbar.LENGTH_LONG).show();
+                            try {
+//                                if (hasActiveInternetConnection()) {
+//                                    WallpaperActivity.this.runOnUiThread(() -> {
+//                                        if (list == null) searchAndLoadWallpaperImages();
+//                                        else
+//                                            secondApiCallScroll(wallpaperApi, urlBase);
+//                                    });
+//                                } else {
+//                                    WallpaperActivity.this.runOnUiThread(this::errorConnectionToast);
+//                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        thread.start();
+
+
                         return true;
                     case R.id.bar_left:
                         viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
@@ -180,10 +247,13 @@ public class PhotoFragmentZoom extends Fragment {
                         }
                         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
                         return true;
-                    case R.id.bar_more:
+                    case R.id.bar_presentation:
+                        MenuItem item = bottomNavigationView.getMenu().getItem(2);
                         if (timer != null) {
                             timer.cancel();
                             timer = null;
+                            item.setIcon(R.drawable.ic_action_presentation);
+                            item.setTitle(R.string.presentation);
                             return true;
                         }
                         currentPage = realPosition;
@@ -202,6 +272,8 @@ public class PhotoFragmentZoom extends Fragment {
                                 handler.post(Update);
                             }
                         }, DELAY_MS, PERIOD_MS);
+                        item.setIcon(R.drawable.ic_action_presentation_stop);
+                        item.setTitle(R.string.cancel_presentation);
                         return true;
                 }
                 return false;
@@ -223,6 +295,7 @@ public class PhotoFragmentZoom extends Fragment {
     private class PhotoWithZoomAdapter extends PagerAdapter {
         private HashMap<View, PhotoView> photoViewContainer = new HashMap<>(); // to save the photoview items so when view is remove also this photoview(Glide petition)
         private SharedPreferences sharedPref;
+        private PhotoView photoView;
 
         @Override
         public int getCount() {
@@ -233,7 +306,6 @@ public class PhotoFragmentZoom extends Fragment {
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup parent, int position) {
-            PhotoView photoView;
             Log.d("load", "loading" + position);
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.photo_view_with_zoom_item, parent, false);
             View parentItem = (View) ((ViewGroup) parent.getParent()).getParent();
@@ -301,6 +373,7 @@ public class PhotoFragmentZoom extends Fragment {
             }
             parent.addView(view);
             photoViewContainer.put(view, photoView);
+            photoViewContainerByPosition.put(position, photoView);
             return view;
         }
 

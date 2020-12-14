@@ -9,10 +9,14 @@
         android:icon="@drawable/ic_download"
         android:title="@string/download" />
 
+    <!--    <item-->
+    <!--        android:id="@+id/bar_more"-->
+    <!--        android:icon="@drawable/ic_more"-->
+    <!--        android:title="@string/more" />-->
     <item
-        android:id="@+id/bar_more"
-        android:icon="@drawable/ic_more"
-        android:title="@string/more" />
+        android:id="@+id/bar_presentation"
+        android:icon="@drawable/ic_action_presentation"
+        android:title="@string/presentation" />
     <item
         android:id="@+id/bar_left"
         android:icon="@drawable/ic_left"
