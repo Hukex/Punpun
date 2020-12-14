@@ -18,6 +18,7 @@
 This project was developed in order to learn **Android** and develop my first native app; 
 
 I use **2** API for this project.
+
 [**Wallpaper Abyss:**](https://wall.alphacoders.com/api.php)  For display images from WallpaperActivity. You will need a key for use this api.
 
 [**Jikan API:**](https://jikan.docs.apiary.io/)  For display data from animes/manga from myanimelist. This api doesnt need no key because its not official.
