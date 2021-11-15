@@ -268,10 +268,7 @@ public class WallpaperActivity extends AppCompatActivity implements ItemClickLis
                         return false;
                     }
                 }
-                Snackbar snackbar = Snackbar.make(swipeRefreshLayout, getString(R.string.not_found) + " " + query, Snackbar.LENGTH_LONG).setAnchorView(bottomNavigationView);
-                snackbar.setTextColor(ContextCompat.getColor(WallpaperActivity.this, R.color.purple_200));
-                snackbar.show();
-                return true;
+                return searchBySubmitPersonal(query, frameLayout);
             }
 
             @Override
@@ -317,6 +314,26 @@ public class WallpaperActivity extends AppCompatActivity implements ItemClickLis
         frameLayout.setVisibility(View.GONE);
     }
 
+    private boolean searchBySubmitPersonal(String name, FrameLayout frameLayout) {
+        page = 1;
+        list = null;
+        urlBase = getString(R.string.firstPart) + getString(R.string.key) + getString(R.string.searchMethodPersonal) + name + getString(R.string.info_level2_and_page_label);
+        searchAndLoadWallpaperImages();
+        materialToolbar.setTitle(name);
+        searchView.setQuery("", false);
+        searchView.setIconified(true);
+        materialToolbar.setNavigationIcon(R.drawable.ic_left);
+        frameLayout.setVisibility(View.GONE);
+        if (list == null) {
+            Snackbar snackbar = Snackbar.make(swipeRefreshLayout, getString(R.string.not_found) + " " + name, Snackbar.LENGTH_LONG).setAnchorView(bottomNavigationView);
+            snackbar.setTextColor(ContextCompat.getColor(WallpaperActivity.this, R.color.purple_200));
+            snackbar.show();
+            return true;
+        } else
+            return false;
+    }
+
+
     private void subCategoryCallPetition() {
         String subCategoriesUrl = getString(R.string.firstPart) + getString(R.string.key) + getString(R.string.subCategoryMethod);
         Call<SubCategoryCall> subCategoryCall = wallpaperApi.getSubcategories(subCategoriesUrl);
@@ -358,7 +375,16 @@ public class WallpaperActivity extends AppCompatActivity implements ItemClickLis
                     return;
                 }
                 progressBarCenter.setVisibility(View.GONE);
-                list = response.body().getWallpapers();
+                if (response.body() != null && response.body().getWallpapers() != null)
+                    list = response.body().getWallpapers();
+                else {
+                    Snackbar snackbar = Snackbar.make(swipeRefreshLayout, getString(R.string.not_found), Snackbar.LENGTH_LONG).setAnchorView(bottomNavigationView);
+                    snackbar.setTextColor(ContextCompat.getColor(WallpaperActivity.this, R.color.purple_200));
+                    snackbar.show();
+                    return;
+                }
+                if (response.body().total_match != null)
+                    numberOfPhotos = Integer.valueOf(response.body().total_match);
                 autofitRecyclerViewWallpaper.setContextAndPhotoClickListener(WallpaperActivity.this, WallpaperActivity.this);
                 autofitRecyclerViewWallpaper.setListUpdate(list);
                 autofitRecyclerViewWallpaper.setSharedPref(sharedPref, editor);
@@ -536,6 +562,7 @@ public class WallpaperActivity extends AppCompatActivity implements ItemClickLis
     public void onMangaClicked(MangaTop anime) {
 
     }
+
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));

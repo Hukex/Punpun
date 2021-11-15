@@ -6,6 +6,7 @@
     <string name="subCategoryMethod" translatable="false">&amp;method=sub_category_list&amp;id=3</string>
     <string name="categoryMethod" translatable="false">&amp;method=category&amp;id=3&amp;info_level=2&amp;page=</string>
     <string name="searchMethod" translatable="false">&amp;method=sub_category&amp;id=</string>
+    <string name="searchMethodPersonal" translatable="false">&amp;method=search&amp;term=</string>
     <string name="info_level2_and_page_label" translatable="false">&amp;info_level=2&amp;page=</string>
 
     ////////////////////////////////// WALLPAPER ////////////////////////////////////////////

@@ -15,5 +15,6 @@ public class WallpaperCall {
     @SerializedName("wallpapers")
     @Expose
     public List<Wallpaper> wallpapers = null;
-
+    @SerializedName("total_match")
+    public String total_match;
 }
