@@ -49,5 +49,8 @@
     <string name="download_message_11">Download is not yet available for android 11 devices</string>
     <string name="downloading">Downloading image…</string>
     <string name="downloaded">¡Image downloaded!</string>
+    <string name="presentation_title">Presentation speed</string>
+    <string name="presentation_info_single">second between images</string>
+    <string name="presentation_info_plural">seconds between images</string>
 
 </resources>

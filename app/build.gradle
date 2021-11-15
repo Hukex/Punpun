@@ -95,7 +95,7 @@ dependencies {
     //Progress bar
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
-    //Swiperefreshlayout
+    //SwipeRefreshLayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     //Preferences(Settings)

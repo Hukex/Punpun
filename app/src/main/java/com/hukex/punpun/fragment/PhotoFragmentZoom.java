@@ -2,10 +2,12 @@ package com.hukex.punpun.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
@@ -47,11 +49,17 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.slider.RangeSlider;
+import com.google.android.material.slider.Slider;
 import com.google.android.material.snackbar.Snackbar;
 import com.hukex.punpun.R;
 import com.hukex.punpun.WallpaperActivity;
 import com.hukex.punpun.model.wallpapers.Wallpaper;
 import com.hukex.punpun.utils.GlideApp;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -74,11 +82,12 @@ public class PhotoFragmentZoom extends Fragment {
     private int currentPage = 0;
     private Timer timer;
     final long DELAY_MS = 50;//delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 1500; // time in milliseconds between successive task executions.
+    long period_ms = 2000; // time in milliseconds between successive task executions (can be changed by user).
     private int realPosition;
     private PhotoWithZoomAdapter photoWithZoomAdapter;
     private SharedPreferences sharedPref;
     private HashMap<Integer, PhotoView> photoViewContainerByPosition = new HashMap<>();
+
 
     //Important when rotate phone(create activity)
     public PhotoFragmentZoom() {
@@ -168,6 +177,9 @@ public class PhotoFragmentZoom extends Fragment {
                 }
             });
             BottomNavigationView bottomNavigationView = view.findViewById(R.id.container_bar);
+
+            presentationLongClick(view, bottomNavigationView);
+
             bottomNavigationView.setOnNavigationItemSelectedListener(v -> {
                 switch (v.getItemId()) {
                     case R.id.bar_share:
@@ -257,21 +269,7 @@ public class PhotoFragmentZoom extends Fragment {
                             return true;
                         }
                         currentPage = realPosition;
-                        /*After setting the adapter use the timer */
-                        final Handler handler = new Handler();
-                        final Runnable Update = () -> {
-                            if (currentPage == wallpapers.size() - 1) {
-                                currentPage = 0;
-                            }
-                            viewPager.setCurrentItem(currentPage++, true);
-                        };
-                        timer = new Timer(); // This will create a new Thread
-                        timer.schedule(new TimerTask() { // task to be scheduled
-                            @Override
-                            public void run() {
-                                handler.post(Update);
-                            }
-                        }, DELAY_MS, PERIOD_MS);
+                        setPresentationTimer();
                         item.setIcon(R.drawable.ic_action_presentation_stop);
                         item.setTitle(R.string.cancel_presentation);
                         return true;
@@ -279,6 +277,73 @@ public class PhotoFragmentZoom extends Fragment {
                 return false;
             });
         }
+    }
+
+    private void presentationLongClick(View view, BottomNavigationView bottomNavigationView) {
+        //VERTICAL
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
+        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.pop_up, view.findViewById(R.id.bottom_sheet));
+        bottomSheetDialog.setContentView(bottomSheet);
+        Slider sliderBottom = bottomSheet.findViewById(R.id.speed_slider);
+        TextView secondsTextBottom = bottomSheet.findViewById(R.id.seconds_text);
+        sliderBottom.addOnChangeListener((slider, value, fromUser) -> {
+            int v = (int) value;
+            secondsTextBottom.setText(v + " " + (v == 1 ? getString(R.string.presentation_info_single) : getString(R.string.presentation_info_plural)));
+            rangeSliderChangeValueAndSetTimer(value);
+        });
+        //LANDSCAPE
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.pop_up);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        TextView secondsTextDialog = dialog.findViewById(R.id.seconds_text);
+        Slider sliderDialog = dialog.findViewById(R.id.speed_slider);
+        sliderDialog.addOnChangeListener((slider, value, fromUser) -> {
+            int v = (int) value;
+            secondsTextDialog.setText(v + " " + (v == 1 ? getString(R.string.presentation_info_single) : getString(R.string.presentation_info_plural)));
+            rangeSliderChangeValueAndSetTimer(value);
+        });
+
+        bottomNavigationView.findViewById(R.id.bar_presentation).setOnLongClickListener(v -> {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                if (dialog != null && !dialog.isShowing()) {
+                    sliderDialog.setValue((float) period_ms / 1000);
+                    dialog.show();
+                }
+            } else {
+                if (!bottomSheetDialog.isShowing()) {
+                    sliderBottom.setValue((float) period_ms / 1000);
+                    bottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+                    bottomSheetDialog.show();
+                }
+            }
+            return true;
+        });
+    }
+
+    private void rangeSliderChangeValueAndSetTimer(float value) {
+        period_ms = (long) (value * 1000);
+        if (timer != null) {
+            timer.cancel();
+            setPresentationTimer();
+        }
+    }
+
+    private void setPresentationTimer() {
+        /*After setting the adapter use the timer */
+        final Handler handler = new Handler();
+        final Runnable Update = () -> {
+            if (currentPage == wallpapers.size() - 1) {
+                currentPage = 0;
+            }
+            viewPager.setCurrentItem(currentPage++, true);
+        };
+        timer = new Timer(); // This will create a new Thread
+        timer.schedule(new TimerTask() { // task to be scheduled
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, DELAY_MS, period_ms);
     }
 
     private void madeMainBarsInvisibleAndFullScreen(View view) {

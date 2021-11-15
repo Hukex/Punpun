@@ -27,7 +27,7 @@ public class RecyclerViewAdapterAnime extends RecyclerView.Adapter<RecyclerViewA
     private List<AnimeTop> animes;
 
 
-    public RecyclerViewAdapterAnime(Context mContext, List<AnimeTop> animes, ItemClickListener itemClickListener) {
+    public  RecyclerViewAdapterAnime(Context mContext, List<AnimeTop> animes, ItemClickListener itemClickListener) {
         this.mContext = mContext;
         this.animes = animes;
         this.itemClickListener = itemClickListener;

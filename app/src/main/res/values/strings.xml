@@ -28,6 +28,10 @@
     // top bar wallpaper
     <string name="searchW">Buscar</string>
     <string name="settingsW">Ajustes</string>
+    //dialog wallpaper presentation
+    <string name="presentation_title">Velocidad de presentación</string>
+    <string name="presentation_info_single">segundo entre imagenes</string>
+    <string name="presentation_info_plural">segundos entre imagenes</string>
 
 
     //button retry

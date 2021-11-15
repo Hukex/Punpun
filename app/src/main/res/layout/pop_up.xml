@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="0dp"
+    android:layout_marginBottom="40dp"
+    android:background="@drawable/border_grey_color"
+    android:backgroundTint="?attr/backgroundOwn"
+    android:paddingTop="25dp"
+    android:paddingBottom="25dp">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="@string/presentation_title"
+        android:textAlignment="center"
+        android:textColor="?attr/textOwn"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/speed_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stepSize="1"
+        android:valueFrom="1.0"
+        android:valueTo="10.0"
+        app:haloColor="?attr/iconSelectedOwn"
+        app:haloRadius="10dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:thumbColor="?attr/iconSelectedOwn"
+        app:trackColor="?attr/textOwn" />
+
+    <TextView
+        android:id="@+id/seconds_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/presentation_info"
+        android:textAlignment="center"
+        android:textColor="?attr/textOwn"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speed_slider" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
